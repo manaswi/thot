@@ -1,0 +1,16 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: thot_development
+  pool: 5
+  username: dbtiger
+  password: pypy
+
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: thot_test
+  pool: 5
+  username: dbtiger
+  password: pypy
