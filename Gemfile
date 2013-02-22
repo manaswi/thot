@@ -17,7 +17,7 @@ gem 'bootstrap-sass', '~> 2.3.0.0'
 gem "font-awesome-rails"
 
 gem 'turbolinks'
-#gem 'devise'
+gem 'devise'
 gem "cancan"
 
 #gem 'sunspot_rails'

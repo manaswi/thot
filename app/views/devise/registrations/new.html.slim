@@ -1,0 +1,14 @@
+-title "Sign up"
+.row
+  .span4
+    .form
+      = simple_form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f|
+        = f.error_notification
+        .form-inputs
+          = f.input :username, :autofocus => true
+          = f.input :email 
+          = f.input :password
+          = f.input :password_confirmation
+        .form-actions
+          = f.button :submit, "Sign up"
+      = render "devise/shared/links"

@@ -1,5 +1,7 @@
 Thot::Application.routes.draw do
   
+  devise_for :users, :path => ''
+
   root :to => 'static_pages#home'
 
   match '/about', to: 'static_pages#about'
