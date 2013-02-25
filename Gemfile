@@ -16,12 +16,15 @@ gem 'bootstrap-sass', '~> 2.3.0.0'
 
 gem "font-awesome-rails"
 
-gem 'turbolinks'
 gem 'devise'
 gem "cancan"
 
 #gem 'sunspot_rails'
+gem 'turbolinks'
 gem 'simple_form'
+gem 'client_side_validations'
+gem 'client_side_validations-simple_form'
+gem 'client_side_validations-turbolinks'
 gem 'nested_form'
 
 
@@ -41,7 +44,6 @@ gem 'slim'
 gem 'haml2slim'
 #gem 'tabulous'
 #gem 'jqtools-rails'
-#gem 'client_side_validations'
 
 
 group :development, :test do

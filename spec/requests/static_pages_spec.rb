@@ -11,6 +11,16 @@ describe "StaticPages" do
     it { should_not have_selector 'title', text: 'Home|' }
   end
 
+  describe "Home page for new/non signed in user" do
+    before { visit root_path }
+
+    it { should have_selector('h3',    text: 'Sign in') }
+    it { should have_selector('title', text: 'ThotFood') }
+    it { should_not have_selector 'title', text: 'Home|' }
+  end
+
+
+
   describe "About page" do
     before { visit about_path }
 

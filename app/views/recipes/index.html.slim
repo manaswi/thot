@@ -1,0 +1,15 @@
+-title "Recipes"
+
+table
+  tr
+    th Title
+    th Description
+  for recipe in @recipes
+    tr
+      td=recipe.title
+      td=recipe.description
+      td=link_to "Show", recipe
+      td=link_to "Edit", edit_recipe_path(recipe) 
+      td=link_to "Destroy", recipe, :confirm = 'Are you sure?',method = :delete
+
+p=link_to "New Recipe", new_recipe_path %/p

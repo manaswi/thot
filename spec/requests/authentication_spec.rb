@@ -17,19 +17,19 @@ describe "Authentication" do
       before { click_button "Sign in" }
 
       it { should have_selector('title', text: 'Sign in') }
-      it { should have_selector('div.alert.alert-error', text: 'Invalid') }
+      it { should have_selector('div.alert.error-alert', text: 'Invalid') }
     end
+    
     describe "after visiting another page" do
         before { click_link "Home" }
-        it { should_not have_selector('div.alert.alert-error') }
+        it { should_not have_selector('div.alert.error-alert') }
     end
 
     
     describe "with valid information" do
-      let(:user) { FactoryGirl.create(:user) }
-      before { sign_in user }
+      sign_in_as_a_valid_user
 
-      it { should have_selector('title', text: user.name) }
+      it { should have_selector('title', text: user.username) }
 
       #it { should have_link('Users',    href: users_path) }
       it { should have_link('Profile', href: user_path(user)) }
@@ -37,6 +37,20 @@ describe "Authentication" do
       it { should have_link('Sign out', href: destroy_user_session_path) }
       it { should_not have_link('Sign in', href: signin_path) }
         
+      it "should have a current_user" do
+        # note the fact that I removed the "validate_session" parameter if this was a scaffold-generated controller
+        subject.current_user.should_not be_nil
+      end
+
+      it "should get index" do
+        # Note, rails 3.x scaffolding may add lines like get :index, {}, valid_session
+        # the valid_session overrides the devise login. Remove the valid_session from your specs
+        get 'index'
+        response.should be_success
+      end
+
+
+
       describe "followed by signout" do
         before { click_link "Sign out" }
         it { should have_link('Sign in') }

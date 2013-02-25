@@ -1,5 +1,7 @@
 Thot::Application.routes.draw do
   
+  resources :recipes
+
   devise_for :users, :path => ''
 
   root :to => 'static_pages#home'

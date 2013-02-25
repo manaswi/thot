@@ -29,6 +29,7 @@ class User < ActiveRecord::Base
   attr_accessible :login, :username, :email, :password, :password_confirmation, :remember_me
   # attr_accessible :title, :body
   attr_accessor :login
+  has_many :recipes
   validates :username, presence: true, length: {maximum: 50, minimum: 3},
               uniqueness: {case_sensitive: false}
  
