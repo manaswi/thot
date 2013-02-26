@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'requests_helper'
 
 describe "Authentication" do
   subject {page}
@@ -27,28 +28,20 @@ describe "Authentication" do
 
     
     describe "with valid information" do
-      sign_in_as_a_valid_user
+      before { sign_in_as_a_valid_user }
 
-      it { should have_selector('title', text: user.username) }
+      it { should have_selector('h3', text: @user.username) }
 
       #it { should have_link('Users',    href: users_path) }
-      it { should have_link('Profile', href: user_path(user)) }
-      it { should have_link('Settings', href: edit_user_registration_path(user)) }
+      it { should have_link('Edit profile', href: edit_user_registration_path) }
+      #it { should have_link('Settings', href: edit_user_registration_path(user)) }
       it { should have_link('Sign out', href: destroy_user_session_path) }
-      it { should_not have_link('Sign in', href: signin_path) }
+      it { should_not have_link('Sign in', href: new_user_session_path) }
         
       it "should have a current_user" do
         # note the fact that I removed the "validate_session" parameter if this was a scaffold-generated controller
-        subject.current_user.should_not be_nil
+        current_user.should_not be_nil
       end
-
-      it "should get index" do
-        # Note, rails 3.x scaffolding may add lines like get :index, {}, valid_session
-        # the valid_session overrides the devise login. Remove the valid_session from your specs
-        get 'index'
-        response.should be_success
-      end
-
 
 
       describe "followed by signout" do
@@ -56,29 +49,5 @@ describe "Authentication" do
         it { should have_link('Sign in') }
       end
     end
-  end
-
-  describe "authorization" do
-
-    describe "for non-signed-in users" do
-      let(:user) { FactoryGirl.create(:user) }
-
-      describe "when attempting to visit a protected page" do
-        before do
-          visit edit_user_registration_path(user)
-          fill_in "Email",    with: user.email
-          fill_in "Password", with: user.password
-          click_button "Sign in"
-        end
-
-        describe "after signing in" do
-
-          it "should render the desired protected page" do
-            page.should have_selector('title', text: 'Edit user')
-            page.should have_selector('h1', text: 'Edit your profile')
-          end
-        end
-      end
-    end  
   end
 end

@@ -1,6 +1,8 @@
 class RecipesController < ApplicationController
   def index
-    @recipes = Recipe.all
+    @user = current_user
+    @recipes = @user.recipes
+    @allrecipes = Recipe.where('user_id != ?', current_user.id)
   end
 
   def show
@@ -8,11 +10,13 @@ class RecipesController < ApplicationController
   end
 
   def new
-    @recipe = Recipe.new
+    @user = current_user
+    @recipe = @user.recipes.build
   end
 
   def create
-    @recipe = Recipe.new(params[:recipe])
+    @user = current_user
+    @recipe = @user.recipes.build(params[:recipe])
     if @recipe.save
       redirect_to @recipe, :notice => "Successfully created recipe."
     else

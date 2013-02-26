@@ -1,9 +1,6 @@
 class StaticPagesController < ApplicationController
   def home
-    respond_to do |format|
-      format.html
-      format.json { render json: @post }
-    end
+    #@recipe = current_user.recipes.build
   end
 
   def about

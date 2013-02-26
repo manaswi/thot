@@ -37,6 +37,10 @@ Spork.prefork do
     # automatically. This will be the default behavior in future versions of
     # rspec-rails.
     config.infer_base_class_for_anonymous_controllers = false
+    #trying to fix undefined local var or method user...
+    config.include Rails.application.routes.url_helpers
+
+
   end
 end
 Spork.each_run do

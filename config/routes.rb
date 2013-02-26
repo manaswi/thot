@@ -1,9 +1,7 @@
 Thot::Application.routes.draw do
   
-  resources :recipes
-
   devise_for :users, :path => ''
-
+  resources :recipes
   root :to => 'static_pages#home'
 
   match '/about', to: 'static_pages#about'
