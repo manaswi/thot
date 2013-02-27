@@ -1,0 +1,35 @@
+-title @recipe.title
+
+dl.dl-horizontal.well.text-info
+  dt Description
+  dd = @recipe.description
+p
+  strong 
+    |Steps:
+ol
+  -@recipe.steps.each do |step|
+    .row-fluid  
+      .span2.step-ing
+        ul.unstyled
+          -step.step_ingredients.each do |s_i|
+            li
+              = "#{s_i.quantity} #{s_i.unit} #{s_i.ingredient}"
+      .span4.recipe-steps
+        li= step.description
+p
+  = link_to "Edit", edit_recipe_path(@recipe)
+  '|
+  = link_to "Destroy", @recipe, :confirm => 'Are you sure?', :method => :delete
+  '|
+  = link_to "View All", recipes_path
+
+/ ol
+/     -@recipe.steps.each do |step|
+/       .row-fluid
+/         .span4
+/           li= step.description
+/         .span4
+/           ul
+/             -step.step_ingredients.each do |s_i|
+/               li
+/                 = "#{s_i.quantity} #{s_i.unit} #{s_i.ingredient}"

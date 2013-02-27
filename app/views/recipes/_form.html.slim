@@ -1,0 +1,47 @@
+.form
+  = simple_nested_form_for @recipe do |f|
+    = f.error_messages
+    .well
+      = f.input :title 
+      = f.input :description, input_html: { rows: 3 } 
+    = f.simple_fields_for :steps do |steps_form|
+      .row-fluid
+        .span6
+          = steps_form.input :description, :label => "Step", input_html: { rows: 3 }
+          = steps_form.link_to_remove do
+            i.icon-trash __
+        .span6.well
+          = steps_form.simple_fields_for :step_ingredients do |step_ingredients_form|
+            .controls.controls-row
+              .span3
+                = step_ingredients_form.input :quantity, :placeholder => 'Qty', :label => false
+              .span3
+                = step_ingredients_form.input :unit, :placeholder => 'Unit', :label => false
+              .span5
+                = step_ingredients_form.input :ingredient, :placeholder => 'Ingredient', :label => false
+              .span1
+                = step_ingredients_form.link_to_remove do
+                  i.icon-trash __
+          .controls.controls-row
+            =steps_form.link_to_add "Add an ingredient", :step_ingredients
+    .row-fluid
+      =f.link_to_add "Add a step", :steps
+    .center
+      = f.submit 
+
+
+/ .form
+/   = simple_nested_form_for @recipe do |f|
+/     = f.error_messages
+/     = f.input :title 
+/     = f.input :description, input_html: { rows: 3 } 
+/     = f.simple_fields_for :steps do |steps_form|
+/       .row-fluid
+/         .span6
+/           = steps_form.input :description, :label => "Step", input_html: { rows: 3 } 
+/         .span6.well
+/           = steps_form.simple_fields_for :ingredients do |ingredients_form| 
+/             = ingredients_form.input :quantity 
+/             = ingredients_form.input :unit 
+/             = ingredients_form.input :ingredient_id 
+/     = f.submit 

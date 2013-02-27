@@ -12,6 +12,10 @@ class RecipesController < ApplicationController
   def new
     @user = current_user
     @recipe = @user.recipes.build
+    1.times do
+      step = @recipe.steps.build
+      1.times { step.step_ingredients.build }
+    end
   end
 
   def create
