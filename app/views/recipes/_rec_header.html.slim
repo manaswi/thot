@@ -1,0 +1,11 @@
+#recipe_header.well
+  dl.dl-horizontal.text-info
+    dt Description
+    dd = best_in_place @recipe, :description, type: :textarea
+    dt Tags
+    / dd = raw @recipe.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') 
+    dd 
+      ol.unstyled
+        li= raw @recipe.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') 
+        li
+          <a href="#ManageLabels" role="button" class="btn" data-toggle="modal">Edit tags</a>

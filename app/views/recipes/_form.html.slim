@@ -6,9 +6,6 @@
       = f.input :description, input_html: { rows: 3 }
       .field
         = f.input :tag_list, :label => "Tags (separated by commas)", :url => autocomplete_tag_name_recipes_path, :as => :autocomplete, input_html: { :'data-delimiter' => ', '}
-      / = f.label :tag_list, "Tags (separated by commas)"
-      / = f.autocomplete_field :tag_list, autocomplete_tag_name_recipes_path, :"data-delimiter" => ', '
-        / = f.text_field :tag_list
     = f.simple_fields_for :steps do |steps_form|
       .row-fluid
         .span6
@@ -34,19 +31,3 @@
     .center
       = f.submit 
 
-
-/ .form
-/   = simple_nested_form_for @recipe do |f|
-/     = f.error_messages
-/     = f.input :title 
-/     = f.input :description, input_html: { rows: 3 } 
-/     = f.simple_fields_for :steps do |steps_form|
-/       .row-fluid
-/         .span6
-/           = steps_form.input :description, :label => "Step", input_html: { rows: 3 } 
-/         .span6.well
-/           = steps_form.simple_fields_for :ingredients do |ingredients_form| 
-/             = ingredients_form.input :quantity 
-/             = ingredients_form.input :unit 
-/             = ingredients_form.input :ingredient_id 
-/     = f.submit 
