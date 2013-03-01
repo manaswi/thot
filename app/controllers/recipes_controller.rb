@@ -1,8 +1,18 @@
 class RecipesController < ApplicationController
+  autocomplete :tag, :name, :full => true, :class_name => 'ActsAsTaggableOn::Tag'
+  #autocomplete :step_ingredient, :ingredient, :full => true#, :class_name => 'ActsAsTaggableOn::Tag'
+  respond_to :html, :json
+
   def index
-    @user = current_user
-    @recipes = @user.recipes
-    @allrecipes = Recipe.where('user_id != ?', current_user.id)
+    if params[:tag]
+      @user = current_user
+      @recipes = Recipe.tagged_with(params[:tag])
+      @allrecipes = Recipe.tagged_with(params[:tag]).where('user_id != ?', current_user.id)
+    else
+      @user = current_user
+      @recipes = @user.recipes
+      @allrecipes = Recipe.where('user_id != ?', current_user.id)
+    end
   end
 
   def show
@@ -21,11 +31,6 @@ class RecipesController < ApplicationController
   def create
     @user = current_user
     @recipe = @user.recipes.build(params[:recipe])
-    if @recipe.save
-      redirect_to @recipe, :notice => "Successfully created recipe."
-    else
-      render :action => 'new'
-    end
   end
 
   def edit
@@ -34,10 +39,14 @@ class RecipesController < ApplicationController
 
   def update
     @recipe = Recipe.find(params[:id])
-    if @recipe.update_attributes(params[:recipe])
-      redirect_to @recipe, :notice  => "Successfully updated recipe."
-    else
-      render :action => 'edit'
+    respond_to do |format|
+      if @recipe.update_attributes(params[:recipe])
+        format.html { redirect_to(@recipe, :notice => 'Recipe was successfully updated.') }
+        format.json { respond_with_bip(@recipe) }
+      else
+        format.html { render :action => "edit" }
+        format.json { respond_with_bip(@recipe) }
+      end
     end
   end
 

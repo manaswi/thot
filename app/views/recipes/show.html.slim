@@ -1,8 +1,23 @@
--title @recipe.title
+-title @recipe.title, false
+
+h2 = best_in_place @recipe, :title
 
 dl.dl-horizontal.well.text-info
   dt Description
-  dd = @recipe.description
+  dd = best_in_place @recipe, :description, type: :textarea
+  / an attempt to do the labels from scratch using a modal. WIP.
+  / dt Labels
+  / dd 
+  /   -@recipe.labels.each do |label|
+  /     <button type="button" class="btn btn-custom">
+  /       =label.name
+  /     </button>
+    / p
+    /   br
+    /   <a href="#ManageLabels" role="button" class="btn" data-toggle="modal">Manage Labels</a>
+  dt Tags
+  dd = raw @recipe.tag_list.map { |t| link_to t, tag_path(t) }.join(', ') 
+     
 p
   strong 
     |Steps:
@@ -10,18 +25,32 @@ ol
   -@recipe.steps.each do |step|
     .row-fluid  
       .span2.step-ing
-        ul.unstyled
+        ol.unstyled
           -step.step_ingredients.each do |s_i|
-            li
-              = "#{s_i.quantity} #{s_i.unit} #{s_i.ingredient}"
+            table.table-hover.table-condensed
+              tr
+                td
+                  b= best_in_place s_i, :quantity, :path => recipe_step_step_ingredient_path(@recipe, step, s_i)
+                td
+                  = best_in_place s_i, :unit, :path => recipe_step_step_ingredient_path(@recipe, step, s_i)
+                td
+                  = best_in_place s_i, :ingredient, :path => recipe_step_step_ingredient_path(@recipe, step, s_i)
+            / li
+            /   = "#{s_i.quantity} #{s_i.unit} #{s_i.ingredient}"
+            / Below is Working!!!
+            / li
+            /   = best_in_place s_i, :quantity, :path => recipe_step_step_ingredient_path(@recipe, step, s_i)
       .span4.recipe-steps
-        li= step.description
+        li= best_in_place step, :description, :path => recipe_step_path(@recipe, step)
 p
   = link_to "Edit", edit_recipe_path(@recipe)
   '|
   = link_to "Destroy", @recipe, :confirm => 'Are you sure?', :method => :delete
   '|
   = link_to "View All", recipes_path
+
+
+= render 'manage_labels_modal'
 
 / ol
 /     -@recipe.steps.each do |step|

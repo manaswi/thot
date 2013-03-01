@@ -2,8 +2,13 @@
   = simple_nested_form_for @recipe do |f|
     = f.error_messages
     .well
-      = f.input :title 
-      = f.input :description, input_html: { rows: 3 } 
+      = f.input :title
+      = f.input :description, input_html: { rows: 3 }
+      .field
+        = f.input :tag_list, :label => "Tags (separated by commas)", :url => autocomplete_tag_name_recipes_path, :as => :autocomplete, input_html: { :'data-delimiter' => ', '}
+      / = f.label :tag_list, "Tags (separated by commas)"
+      / = f.autocomplete_field :tag_list, autocomplete_tag_name_recipes_path, :"data-delimiter" => ', '
+        / = f.text_field :tag_list
     = f.simple_fields_for :steps do |steps_form|
       .row-fluid
         .span6

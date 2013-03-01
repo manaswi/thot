@@ -15,6 +15,7 @@ gem 'bootstrap-will_paginate', '0.0.6'
 gem 'bootstrap-sass', '~> 2.3.0.0'
 
 gem "font-awesome-rails"
+gem 'acts-as-taggable-on'
 
 gem 'devise'
 gem "cancan"
@@ -70,6 +71,8 @@ end
   #gem 'jquery-datatables-rails'
   gem 'jquery-rails'
   gem 'jquery-ui-rails'
+  gem 'rails3-jquery-autocomplete'
+  gem "best_in_place"
 
 
 group :test do

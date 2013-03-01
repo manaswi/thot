@@ -1,3 +1,7 @@
+#tag_cloud.center.well
+  - tag_cloud @recipes.tag_counts, %w{s m l} do |tag, css_class|
+    =link_to tag.name, tag_path(tag.name), class: css_class
+    '
 .row-fluid
   .span4
     h3 My Recipes

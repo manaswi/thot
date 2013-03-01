@@ -1,9 +1,19 @@
 Thot::Application.routes.draw do
   
   devise_for :users, :path => ''
-  resources :recipes
+  
+  resources :recipes do
+    get :autocomplete_tag_name, :on => :collection
+    resources :steps do
+      resources :step_ingredients
+    end
+  end
+  
+  
+
   root :to => 'static_pages#home'
 
+  get 'tags/:tag', to: 'recipes#index', as: :tag
   match '/about', to: 'static_pages#about'
 
 
