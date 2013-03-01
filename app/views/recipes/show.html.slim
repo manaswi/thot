@@ -30,7 +30,7 @@ ol
             table.table-hover.table-condensed
               tr
                 td
-                  b= best_in_place s_i, :quantity, :path => recipe_step_step_ingredient_path(@recipe, step, s_i)
+                  = best_in_place s_i, :quantity, :path => recipe_step_step_ingredient_path(@recipe, step, s_i)
                 td
                   = best_in_place s_i, :unit, :path => recipe_step_step_ingredient_path(@recipe, step, s_i)
                 td

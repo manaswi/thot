@@ -31,6 +31,12 @@ class RecipesController < ApplicationController
   def create
     @user = current_user
     @recipe = @user.recipes.build(params[:recipe])
+    if @recipe.save
+      flash[:success] = "Hee-Haw - Recipe created, now go make the dish!"
+      redirect_to @recipe
+    else
+      render 'new'
+    end
   end
 
   def edit
